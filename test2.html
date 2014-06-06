@@ -1,103 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <style>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>FlexBox</title>
+    <style type="text/css">
+      /* Shorthand classes that will show or hide the three back faces of the "cube" */
+ .hidebf div {
+   backface-visibility: hidden;
+   -webkit-backface-visibility: hidden;
+}
+.showbf div {
+   backface-visibility: visible;
+   -webkit-backface-visibility: visible;
+}
 
-  body {
-   font: 24px Helvetica;
-   background: #999999;
+/* Define the container div, the cube div, and a generic face */
+ .container {
+   width: 150px;
+   height: 150px;
+   margin: 75px 0 0 75px;
+   border: none;
+  }
+  .cube {
+     width: 100%;
+     height: 100%;
+     perspective: 300px;
+     perspective-origin: 150% 150%;
+     transform-style: preserve-3d;
+     -webkit-perspective: 300px;
+     -webkit-perspective-origin: 150% 150%;
+     -webkit-transform-style: preserve-3d;
+  }
+  .face {
+     display: block;
+     position: absolute;
+     width: 100px;
+     height: 100px;
+     border: none;
+     line-height: 100px;
+     font-family: sans-serif;
+     font-size: 60px;
+     color: white;
+     text-align: center;
   }
 
-  #main {
-   min-height: 800px;
-   margin: 0px;
-   padding: 0px;
-   display: -webkit-flex;
-   display:         flex;
-   -webkit-flex-flow: row;
-           flex-flow: row;
-   }
+  /* Define each face based on direction */
+   .front {
+     background: rgba(0, 0, 0, 0.3);
+     transform: translateZ(0px);
+     -webkit-transform: translateZ(0px);
+  }
+  .back {
+     background: rgba(0, 255, 0, 1);
+     color: black;
+     transform: rotateY(180deg) translateZ(50px);
+     -webkit-transform: rotateY(180deg) translateZ(50px);
+  }
+  .right {
+     background: rgba(196, 0, 0, 0.7);
+     transform: rotateY(90deg) translateZ(50px);
+     -webkit-transform: rotateY(90deg) translateZ(71px);
+  }
+  .left {
+     background: rgba(0, 0, 196, 0.7);
+     transform: rotateY(-90deg) translateZ(50px);
+     -webkit-transform: rotateY(-90deg) translateZ(50px);
+  }
+  .top {
+     background: rgba(196, 196, 0, 0.7);
+     transform: rotateX(90deg) translateZ(50px);
+     -webkit-transform: rotateX(90deg) translateZ(50px)
+  }
+  .bottom {
+     background: rgba(196, 0, 196, 0.7);
+     transform: rotateX(-90deg) translateZ(50px);
+     -webkit-transform: rotateX(-90deg) translateZ(50px);
+  }
+  .rotate{
+    -webkit-transition-duration: 0.8s;
+    -moz-transition-duration: 0.8s;
+    -o-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+     
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+     
+    overflow:hidden;
+    }  
+    .face.front {
+      width: 117px;
+      height: 117px;
+      left: 0;
+    }
+    .face.right {
+      top: 36px;
+      left: 14px;
+    }
+    .face.bottom {
+      top: 35px;
+      left: 35px;
+    }
  
-  #main > article {
-   margin: 4px;
-   padding: 5px;
-   border: 1px solid #cccc33;
-   border-radius: 7pt;
-   background: #dddd88;
-   -webkit-flex: 3 1 60%;
-           flex: 3 1 60%;
-   -webkit-order: 2;
-           order: 2;
-   }
-  
-  
-  #main > aside {
-   margin: 4px;
-   padding: 5px;
-   border: 1px solid #8888bb;
-   border-radius: 7pt;
-   background: #ccccff;
-   -webkit-flex: 1 6 20%;
-           flex: 1 6 20%;
-   -webkit-order: 3;
-           order: 3;
-   }
- 
-  header, footer {
-   display: block;
-   margin: 4px;
-   padding: 5px;
-   min-height: 100px;
-   border: 1px solid #eebb55;
-   border-radius: 7pt;
-   background: #ffeebb;
-   }
-  
-  nav {
-   padding: 5px;
-   border: 1px solid #8888bb;
-   border-radius: 7pt;
-   background: #ccccff;
-   }
-  nav >ul {
-   display: -webkit-flex;
-   display:         flex;
-   -webkit-flex-flow: row;
-           flex-flow: row;
-  }
-   nav > ul >li {
-   -webkit-flex: 1 1 auto;
-           flex: 1 1 auto;
-   min-width: min-content;
-   }
-  /* Too narrow to support three columns */
-  @media all and (max-width: 640px) {
-  
-   #main, #page {
-    -webkit-flex-flow: column;
-            flex-flow: column;
-            flex-direction: column;
-   }
+.rotate:hover  
+{
+    -webkit-transform:rotate(360deg);
+    -moz-transform:rotate(360deg);
+    -o-transform:rotate(360deg);
+}  
 
-   #main > article, #main > nav, #main > aside {
-    /* Return them to document order */
-    -webkit-order: 0;
-            order: 0;
-   }
-  
-   #main > nav, #main > aside, header, footer {
-    min-height: 50px;
-    max-height: 50px;
-   }
-  }
-
- </style>
+    </style>
   </head>
   <body>
  <header>
   <h1>header</h1>
  </header>
-  <nav>
+
+            <div class="container rotate">
+               <div class="cube showbf">
+                  <div class="face front">1</div>
+                  <div class="face back">2</div>
+                  <div class="face right">3</div>
+                  <div class="face left">4</div>
+                  <div class="face top">5</div>
+                  <div class="face bottom">6</div>
+               </div>
+            </div>
+           
+         <td>
+            <div class="container rotate">
+               <div class="cube hidebf">
+                  <div class="face front">1</div>
+                  <div class="face back">2</div>
+                  <div class="face right">3</div>
+                  <div class="face left">4</div>
+                  <div class="face top">5</div>
+                  <div class="face bottom">6</div>
+               </div>
+            </div>
+            
+  <!--<nav>
     <ul>
       <li>item one</li>
       <li>item two</li>
@@ -108,6 +151,6 @@
     <article>main</article>
     <aside>right</aside>
  </div>
- <footer>footer</footer>
+ <footer>footer</footer>-->
   </body>
 </html>
